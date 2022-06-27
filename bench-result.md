@@ -4,6 +4,7 @@
 
 [code](https://github.com/jjyr/buddy-alloc/blob/master/benches/buddy_alloc.rs)
 
+```
 Benchmarking alloc/16 Bytes: Warming up for 3.0000 s
 Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 6.3s, enable flat sampling, or reduce sample count to 10.
 alloc/16 Bytes          time:   [31.403 ms 32.287 ms 33.644 ms]
@@ -49,11 +50,13 @@ thrpt:  [23.295 Melem/s 23.556 Melem/s 23.712 Melem/s]
 Found 2 outliers among 20 measurements (10.00%)
 1 (5.00%) high mild
 1 (5.00%) high severe
+```
 
 ## Bench for Self
 
 [code](./benches/buddy_alloc.rs)
 
+```
 Benchmarking alloc/16 Bytes: Warming up for 3.0000 s
 Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 9.5s, enable flat sampling, or reduce sample count to 10.
 alloc/16 Bytes          time:   [45.147 ms 45.403 ms 45.676 ms]
@@ -111,3 +114,4 @@ thrpt:  [7.1552 Melem/s 7.1817 Melem/s 7.2075 Melem/s]
 Found 2 outliers among 20 measurements (10.00%)
 1 (5.00%) low severe
 1 (5.00%) high severe
+```
