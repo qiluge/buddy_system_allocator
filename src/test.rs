@@ -157,7 +157,7 @@ fn test_alloc() {
         let mut allocator = Heap::<32>::new();
         allocator.init(buf.as_ptr() as usize, HEAP_SIZE);
         let alloc_size: usize = 16;
-        for i in 0..(ALLOC_SIZE / alloc_size) {
+        for _i in 0..(ALLOC_SIZE / alloc_size) {
             let addr = allocator.alloc(Layout::from_size_align(alloc_size, 1).unwrap());
             assert!(addr.is_ok());
         }

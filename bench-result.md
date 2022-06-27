@@ -1,55 +1,91 @@
 # Bench Result
 
+jjyr分配慢回收快。
+
 ## Bench for jjyr
 
-[code](https://github.com/jjyr/buddy-alloc/blob/master/benches/buddy_alloc.rs)
+[code](https://github.com/qiluge/buddy-alloc/blob/master/benches/buddy_alloc.rs)
 
 ```
 Benchmarking alloc/16 Bytes: Warming up for 3.0000 s
-Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 6.3s, enable flat sampling, or reduce sample count to 10.
-alloc/16 Bytes          time:   [31.403 ms 32.287 ms 33.644 ms]
-thrpt:  [62.334 Melem/s 64.954 Melem/s 66.782 Melem/s]
-alloc/32 Bytes          time:   [15.084 ms 15.273 ms 15.587 ms]
-thrpt:  [67.274 Melem/s 68.654 Melem/s 69.517 Melem/s]
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 9.5s, enable flat sampling, or reduce sample count to 10.
+alloc/16 Bytes          time:   [44.658 ms 44.883 ms 45.118 ms]
+                        thrpt:  [46.482 Melem/s 46.725 Melem/s 46.960 Melem/s]
+                 change:
+                        time:   [+36.248% +41.977% +47.064%] (p = 0.00 < 0.05)
+                        thrpt:  [-32.002% -29.566% -26.605%]
+                        Performance has regressed.
+Benchmarking alloc/32 Bytes: Warming up for 3.0000 s
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 7.7s, enable flat sampling, or reduce sample count to 10.
+alloc/32 Bytes          time:   [36.677 ms 36.816 ms 36.993 ms]
+                        thrpt:  [28.346 Melem/s 28.482 Melem/s 28.590 Melem/s]
+                 change:
+                        time:   [+92.703% +112.17% +128.26%] (p = 0.00 < 0.05)
+                        thrpt:  [-56.189% -52.868% -48.107%]
+                        Performance has regressed.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) low mild
+Benchmarking alloc/64 Bytes: Warming up for 3.0000 s
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 6.7s, enable flat sampling, or reduce sample count to 10.
+alloc/64 Bytes          time:   [31.870 ms 32.051 ms 32.248 ms]
+                        thrpt:  [16.258 Melem/s 16.358 Melem/s 16.451 Melem/s]
+                 change:
+                        time:   [+227.28% +266.47% +301.37%] (p = 0.00 < 0.05)
+                        thrpt:  [-75.085% -72.712% -69.445%]
+                        Performance has regressed.
 Found 2 outliers among 20 measurements (10.00%)
-1 (5.00%) high mild
-1 (5.00%) high severe
-alloc/64 Bytes          time:   [8.3002 ms 8.5313 ms 8.9222 ms]
-thrpt:  [58.762 Melem/s 61.455 Melem/s 63.166 Melem/s]
-Found 4 outliers among 20 measurements (20.00%)
-2 (10.00%) high mild
-2 (10.00%) high severe
-alloc/128 Bytes         time:   [4.4161 ms 4.4767 ms 4.5617 ms]
-thrpt:  [57.466 Melem/s 58.558 Melem/s 59.361 Melem/s]
-Found 3 outliers among 20 measurements (15.00%)
-1 (5.00%) high mild
-2 (10.00%) high severe
+  1 (5.00%) low mild
+  1 (5.00%) high mild
+Benchmarking alloc/128 Bytes: Warming up for 3.0000 s
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 5.9s, enable flat sampling, or reduce sample count to 10.
+alloc/128 Bytes         time:   [28.037 ms 28.187 ms 28.314 ms]
+                        thrpt:  [9.2585 Melem/s 9.3002 Melem/s 9.3500 Melem/s]
+                 change:
+                        time:   [+432.59% +508.89% +578.16%] (p = 0.00 < 0.05)
+                        thrpt:  [-85.254% -83.577% -81.224%]
+                        Performance has regressed.
+Found 2 outliers among 20 measurements (10.00%)
+  1 (5.00%) low mild
+  1 (5.00%) high mild
 
 alloc then free/16 Bytes
-time:   [67.635 ms 69.395 ms 71.644 ms]
-thrpt:  [29.272 Melem/s 30.221 Melem/s 31.007 Melem/s]
+                        time:   [73.489 ms 73.759 ms 74.030 ms]
+                        thrpt:  [28.329 Melem/s 28.433 Melem/s 28.537 Melem/s]
+                 change:
+                        time:   [+34.269% +35.150% +36.011%] (p = 0.00 < 0.05)
+                        thrpt:  [-26.476% -26.008% -25.523%]
+                        Performance has regressed.
 Found 2 outliers among 20 measurements (10.00%)
-1 (5.00%) high mild
-1 (5.00%) high severe
-Benchmarking alloc then free/32 Bytes: Warming up for 3.0000 s
-Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 8.2s, enable flat sampling, or reduce sample count to 10.
+  1 (5.00%) low mild
+  1 (5.00%) high mild
 alloc then free/32 Bytes
-time:   [32.563 ms 33.060 ms 33.844 ms]
-thrpt:  [30.982 Melem/s 31.718 Melem/s 32.201 Melem/s]
-Found 4 outliers among 20 measurements (20.00%)
-1 (5.00%) high mild
-3 (15.00%) high severe
+                        time:   [52.583 ms 52.909 ms 53.238 ms]
+                        thrpt:  [19.696 Melem/s 19.818 Melem/s 19.941 Melem/s]
+                 change:
+                        time:   [+52.106% +61.423% +68.879%] (p = 0.00 < 0.05)
+                        thrpt:  [-40.786% -38.051% -34.256%]
+                        Performance has regressed.
+Benchmarking alloc then free/64 Bytes: Warming up for 3.0000 s
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 8.7s, enable flat sampling, or reduce sample count to 10.
 alloc then free/64 Bytes
-time:   [20.101 ms 20.378 ms 20.782 ms]
-thrpt:  [25.229 Melem/s 25.728 Melem/s 26.083 Melem/s]
-Found 1 outliers among 20 measurements (5.00%)
-1 (5.00%) high severe
-alloc then free/128 Bytes
-time:   [11.055 ms 11.129 ms 11.253 ms]
-thrpt:  [23.295 Melem/s 23.556 Melem/s 23.712 Melem/s]
+                        time:   [41.507 ms 41.616 ms 41.729 ms]
+                        thrpt:  [12.564 Melem/s 12.598 Melem/s 12.631 Melem/s]
+                 change:
+                        time:   [+99.183% +108.89% +116.54%] (p = 0.00 < 0.05)
+                        thrpt:  [-53.819% -52.128% -49.795%]
+                        Performance has regressed.
 Found 2 outliers among 20 measurements (10.00%)
-1 (5.00%) high mild
-1 (5.00%) high severe
+  1 (5.00%) low mild
+  1 (5.00%) high mild
+Benchmarking alloc then free/128 Bytes: Warming up for 3.0000 s
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 7.1s, enable flat sampling, or reduce sample count to 10.
+alloc then free/128 Bytes
+                        time:   [33.721 ms 33.871 ms 34.088 ms]
+                        thrpt:  [7.6901 Melem/s 7.7395 Melem/s 7.7738 Melem/s]
+                 change:
+                        time:   [+175.42% +190.28% +201.84%] (p = 0.00 < 0.05)
+                        thrpt:  [-66.870% -65.550% -63.692%]
+                        Performance has regressed.
 ```
 
 ## Bench for Self
@@ -58,60 +94,78 @@ Found 2 outliers among 20 measurements (10.00%)
 
 ```
 Benchmarking alloc/16 Bytes: Warming up for 3.0000 s
-Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 9.5s, enable flat sampling, or reduce sample count to 10.
-alloc/16 Bytes          time:   [45.147 ms 45.403 ms 45.676 ms]
-thrpt:  [45.913 Melem/s 46.189 Melem/s 46.452 Melem/s]
-change:
-time:   [-2.8480% -2.0436% -1.2538%] (p = 0.00 < 0.05)
-thrpt:  [+1.2697% +2.0862% +2.9315%]
-Performance has improved.
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 9.6s, enable flat sampling, or reduce sample count to 10.
+alloc/16 Bytes          time:   [45.508 ms 45.803 ms 46.087 ms]
+                        thrpt:  [45.504 Melem/s 45.786 Melem/s 46.083 Melem/s]
+                 change:
+                        time:   [+0.3373% +0.9742% +1.5974%] (p = 0.01 < 0.05)
+                        thrpt:  [-1.5723% -0.9648% -0.3362%]
+                        Change within noise threshold.
 Benchmarking alloc/32 Bytes: Warming up for 3.0000 s
-Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 7.0s, enable flat sampling, or reduce sample count to 10.
-alloc/32 Bytes          time:   [33.522 ms 33.697 ms 33.901 ms]
-thrpt:  [30.931 Melem/s 31.118 Melem/s 31.280 Melem/s]
-change:
-time:   [-2.2304% -1.5074% -0.7747%] (p = 0.00 < 0.05)
-thrpt:  [+0.7808% +1.5305% +2.2813%]
-Change within noise threshold.
-Found 2 outliers among 20 measurements (10.00%)
-1 (5.00%) low mild
-1 (5.00%) high mild
+Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 7.1s, enable flat sampling, or reduce sample count to 10.
+alloc/32 Bytes          time:   [33.709 ms 33.797 ms 33.904 ms]
+                        thrpt:  [30.928 Melem/s 31.026 Melem/s 31.106 Melem/s]
+                 change:
+                        time:   [+0.0917% +0.8351% +1.6320%] (p = 0.04 < 0.05)
+                        thrpt:  [-1.6058% -0.8282% -0.0916%]
+                        Change within noise threshold.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high mild
 Benchmarking alloc/64 Bytes: Warming up for 3.0000 s
 Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 5.8s, enable flat sampling, or reduce sample count to 10.
-alloc/64 Bytes          time:   [27.752 ms 27.912 ms 28.070 ms]
-thrpt:  [18.678 Melem/s 18.783 Melem/s 18.892 Melem/s]
-change:
-time:   [-1.9714% -0.9228% +0.0686%] (p = 0.10 > 0.05)
-thrpt:  [-0.0685% +0.9314% +2.0110%]
-No change in performance detected.
+alloc/64 Bytes          time:   [27.814 ms 27.987 ms 28.181 ms]
+                        thrpt:  [18.605 Melem/s 18.733 Melem/s 18.850 Melem/s]
+                 change:
+                        time:   [-0.6439% +0.3711% +1.4974%] (p = 0.55 > 0.05)
+                        thrpt:  [-1.4753% -0.3697% +0.6481%]
+                        No change in performance detected.
 Found 1 outliers among 20 measurements (5.00%)
-1 (5.00%) low mild
+  1 (5.00%) high severe
 Benchmarking alloc/128 Bytes: Warming up for 3.0000 s
 Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 5.3s, enable flat sampling, or reduce sample count to 10.
-alloc/128 Bytes         time:   [25.549 ms 25.680 ms 25.846 ms]
-thrpt:  [10.143 Melem/s 10.208 Melem/s 10.260 Melem/s]
-change:
-time:   [-0.4794% +0.4230% +1.3244%] (p = 0.38 > 0.05)
-thrpt:  [-1.3071% -0.4212% +0.4817%]
-No change in performance detected.
+alloc/128 Bytes         time:   [25.351 ms 25.418 ms 25.484 ms]
+                        thrpt:  [10.287 Melem/s 10.313 Melem/s 10.341 Melem/s]
+                 change:
+                        time:   [-1.8891% -1.0585% -0.2163%] (p = 0.02 < 0.05)
+                        thrpt:  [+0.2168% +1.0698% +1.9255%]
+                        Change within noise threshold.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high mild
 
 alloc then free/16 Bytes
-time:   [126.45 ms 126.85 ms 127.25 ms]
-thrpt:  [16.481 Melem/s 16.533 Melem/s 16.585 Melem/s]
-alloc then free/32 Bytes
-time:   [74.824 ms 75.123 ms 75.421 ms]
-thrpt:  [13.903 Melem/s 13.958 Melem/s 14.014 Melem/s]
-alloc then free/64 Bytes
-time:   [49.434 ms 49.645 ms 49.833 ms]
-thrpt:  [10.521 Melem/s 10.561 Melem/s 10.606 Melem/s]
+                        time:   [126.83 ms 127.28 ms 127.70 ms]
+                        thrpt:  [16.423 Melem/s 16.477 Melem/s 16.536 Melem/s]
+                 change:
+                        time:   [-0.1337% +0.3412% +0.7874%] (p = 0.17 > 0.05)
+                        thrpt:  [-0.7813% -0.3401% +0.1338%]
+                        No change in performance detected.
 Found 1 outliers among 20 measurements (5.00%)
-1 (5.00%) low mild
+  1 (5.00%) low mild
+alloc then free/32 Bytes
+                        time:   [75.044 ms 75.283 ms 75.535 ms]
+                        thrpt:  [13.882 Melem/s 13.928 Melem/s 13.973 Melem/s]
+                 change:
+                        time:   [-0.3085% +0.2137% +0.7586%] (p = 0.43 > 0.05)
+                        thrpt:  [-0.7529% -0.2132% +0.3095%]
+                        No change in performance detected.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high mild
+alloc then free/64 Bytes
+                        time:   [49.115 ms 49.291 ms 49.493 ms]
+                        thrpt:  [10.593 Melem/s 10.637 Melem/s 10.675 Melem/s]
+                 change:
+                        time:   [-1.2411% -0.7137% -0.1407%] (p = 0.02 < 0.05)
+                        thrpt:  [+0.1409% +0.7189% +1.2567%]
+                        Change within noise threshold.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high severe
 Benchmarking alloc then free/128 Bytes: Warming up for 3.0000 s
 Warning: Unable to complete 20 samples in 5.0s. You may wish to increase target time to 7.7s, enable flat sampling, or reduce sample count to 10.
 alloc then free/128 Bytes
-time:   [36.371 ms 36.502 ms 36.637 ms]
-thrpt:  [7.1552 Melem/s 7.1817 Melem/s 7.2075 Melem/s]
-Found 2 outliers among 20 measurements (10.00%)
-1 (5.00%) low severe
-1 (5.00%) high severe
+                        time:   [36.494 ms 36.593 ms 36.691 ms]
+                        thrpt:  [7.1446 Melem/s 7.1638 Melem/s 7.1832 Melem/s]
+                 change:
+                        time:   [-0.4349% +0.3548% +1.1335%] (p = 0.41 > 0.05)
+                        thrpt:  [-1.1208% -0.3536% +0.4368%]
+                        No change in performance detected.
 ```

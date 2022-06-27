@@ -9,11 +9,13 @@ use buddy_system_allocator::Heap;
 
 const HEAP_SIZE: usize = 64 * 1024 * 1024;
 const ALLOC_SIZE: usize = 32 * 1024 * 1024;
+// const LEAF_SIZE: usize = 16;
+const ORDER: usize = 32;
 
 fn bench_alloc(alloc_size: usize) {
     let buf: Vec<u8> = Vec::with_capacity(HEAP_SIZE);
     unsafe {
-        let mut allocator = Heap::<32>::new();
+        let mut allocator = Heap::<ORDER>::new();
         allocator.init(buf.as_ptr() as usize, HEAP_SIZE);
         for _i in 0..(ALLOC_SIZE / alloc_size) {
             allocator.alloc(Layout::from_size_align(alloc_size, 1).unwrap()).unwrap();
@@ -24,7 +26,7 @@ fn bench_alloc(alloc_size: usize) {
 fn bench_alloc_then_free(alloc_size: usize) {
     let buf: Vec<u8> = Vec::with_capacity(HEAP_SIZE);
     unsafe {
-        let mut allocator = Heap::<32>::new();
+        let mut allocator = Heap::<ORDER>::new();
         allocator.init(buf.as_ptr() as usize, HEAP_SIZE);
         let count = ALLOC_SIZE / alloc_size;
         let mut ptrs = Vec::with_capacity(count);
