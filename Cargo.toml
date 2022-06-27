@@ -18,3 +18,12 @@ const_fn = []
 [dependencies.spin]
 version = "0.9.3"
 optional = true
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "buddy_alloc"
+harness = false

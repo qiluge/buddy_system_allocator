@@ -1,10 +1,12 @@
-use crate::linked_list;
-use crate::FrameAllocator;
-use crate::Heap;
-use crate::LockedHeapWithRescue;
 use core::alloc::GlobalAlloc;
 use core::alloc::Layout;
 use core::mem::size_of;
+use std::prelude::rust_2015::Vec;
+
+use crate::FrameAllocator;
+use crate::Heap;
+use crate::linked_list;
+use crate::LockedHeapWithRescue;
 
 #[test]
 fn test_linked_list() {
@@ -144,4 +146,20 @@ fn test_frame_allocator_alloc_and_free_complex() {
     let addr1 = frame.alloc(1).unwrap();
     let addr2 = frame.alloc(1).unwrap();
     assert_ne!(addr1, addr2);
+}
+
+#[test]
+fn test_alloc() {
+    const HEAP_SIZE: usize = 64 * 1024 * 1024;
+    const ALLOC_SIZE: usize = 32 * 1024 * 1024;
+    let buf: Vec<u8> = Vec::with_capacity(HEAP_SIZE);
+    unsafe {
+        let mut allocator = Heap::<32>::new();
+        allocator.init(buf.as_ptr() as usize, HEAP_SIZE);
+        let alloc_size: usize = 16;
+        for i in 0..(ALLOC_SIZE / alloc_size) {
+            let addr = allocator.alloc(Layout::from_size_align(alloc_size, 1).unwrap());
+            assert!(addr.is_ok());
+        }
+    }
 }
